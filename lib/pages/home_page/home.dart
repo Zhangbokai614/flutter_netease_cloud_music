@@ -12,7 +12,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _current_index = 0;
+  int _currentIndex = 0;
 
   static const TextStyle _optionsTextStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _current_index = index;
+      _currentIndex = index;
     });
   }
 
@@ -38,42 +38,48 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-            child: Container(
-          height: 32,
-          width: 320,
-          padding: const EdgeInsets.all(4.0),
-          alignment: const Alignment(0, 0),
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(0, 0, 0, 0.1),
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.search_rounded,
-                color: Colors.grey,
+          child: Container(
+            height: 28,
+            width: 320,
+            alignment: const Alignment(0, 0),
+            decoration: const BoxDecoration(
+              color: Color.fromRGBO(0, 0, 0, 0.1),
+              borderRadius: BorderRadius.all(
+                Radius.circular(16.0),
               ),
-              Text(
-                "搜索",
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.search_rounded,
+                  color: Colors.grey,
+                ),
+                Text(
+                  "汪峰",
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
         actions: <Widget>[
           IconButton(onPressed: () {}, icon: const Icon(Icons.mic))
         ],
         backgroundColor: Colors.white,
+        elevation: 0,
         foregroundColor: Colors.black87,
       ),
       drawer: const Drawer(),
-      body: Center(
-        child: _widgetBodyOptions.elementAt(_current_index),
-      ),
+      body: SingleChildScrollView(
+          child: Container(
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 238, 238, 238)),
+        child: _widgetBodyOptions.elementAt(_currentIndex),
+      )),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
@@ -91,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.keyboard_command_key_rounded), label: "社区"),
         ],
-        currentIndex: _current_index,
+        currentIndex: _currentIndex,
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.black45,
         onTap: _onItemTapped,
